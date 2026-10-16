@@ -1,0 +1,19 @@
+.display-xl, .display-l, .display-m {
+  font-family: var(--font-display); font-weight: 600; text-transform: uppercase;
+}
+.display-xl { font-size: var(--display-xl); line-height: var(--display-xl-lh); letter-spacing: -0.03em; }
+.display-l  { font-size: var(--display-l);  line-height: var(--display-l-lh);  letter-spacing: -0.025em; }
+.display-m  { font-size: var(--display-m);  line-height: var(--display-m-lh);  letter-spacing: -0.02em; }
+
+.h1, .h2, .h3, .h4 { font-family: var(--font-text); font-weight: 600; }
+.h1 { font-size: var(--h1); line-height: var(--h1-lh); letter-spacing: -0.015em; }
+.h2 { font-size: var(--h2); line-height: var(--h2-lh); letter-spacing: -0.01em; }
+.h3 { font-size: var(--h3); line-height: var(--h3-lh); letter-spacing: -0.005em; }
+.h4 { font-size: var(--h4); line-height: var(--h4-lh); }
+
+.body-l { font: 400 var(--body-l)/var(--body-l-lh) var(--font-text); }
+.body-m { font: 400 var(--body-m)/var(--body-m-lh) var(--font-text); }
+.body-s { font: 400 var(--body-s)/var(--body-s-lh) var(--font-text); }
+.label  { font: 500 var(--label)/var(--label-lh) var(--font-text); }
+.label-caps { font: 500 var(--label)/var(--label-lh) var(--font-text); letter-spacing: 0.04em; text-transform: uppercase; }
+.caption { font: 400 var(--caption)/var(--caption-lh) var(--font-text); }
