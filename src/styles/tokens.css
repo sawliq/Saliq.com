@@ -1,0 +1,67 @@
+:root {
+  /* Shell */
+  --bg-page: #FFFFFF;
+  --bg-surface: #F7F7F7;
+  --bg-sunken: #E6E6E6;
+  --bg-inverse: #111111;
+  --text-primary: #111111;
+  --text-secondary: #666666;
+  --text-muted: #999999; /* non-text only */
+  --text-inverse: #FFFFFF;
+  --border-default: #E6E6E6; /* decorative only */
+  --border-strong: #111111;
+
+  /* Project accent: Monochrome default */
+  --accent-solid: #111111;
+  --accent-text: #111111;
+  --accent-on-solid: #FFFFFF;
+  --accent-subtle: #F7F7F7;
+
+  /* Spacing */
+  --space-4: 4px; --space-8: 8px; --space-12: 12px; --space-16: 16px;
+  --space-20: 20px; --space-24: 24px; --space-32: 32px; --space-40: 40px;
+  --space-48: 48px; --space-64: 64px; --space-80: 80px; --space-96: 96px;
+  --space-128: 128px;
+
+  /* Radius and stroke */
+  --radius-sm: 8px; --radius-md: 16px; --radius-lg: 24px; --radius-xl: 32px;
+  --radius-full: 999px;
+  --stroke-hairline: 1px; --stroke-focus: 2px;
+
+  /* Fonts */
+  --font-display: "Clash Display", "General Sans", system-ui, sans-serif;
+  --font-text: "General Sans", system-ui, sans-serif;
+
+  /* Type sizes: desktop */
+  --display-xl: 128px; --display-xl-lh: 110px;
+  --display-l: 96px; --display-l-lh: 88px;
+  --display-m: 72px; --display-m-lh: 68px;
+  --h1: 48px; --h1-lh: 56px;
+  --h2: 40px; --h2-lh: 48px;
+  --h3: 32px; --h3-lh: 40px;
+  --h4: 24px; --h4-lh: 32px;
+  --body-l: 20px; --body-l-lh: 30px;
+  --body-m: 18px; --body-m-lh: 28px;
+  --body-s: 16px; --body-s-lh: 24px;
+  --label: 14px; --label-lh: 20px;
+  --caption: 12px; --caption-lh: 18px;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --display-xl: 56px; --display-xl-lh: 52px;
+    --display-l: 48px; --display-l-lh: 46px;
+    --display-m: 40px; --display-m-lh: 40px;
+    --h1: 36px; --h1-lh: 44px;
+    --h2: 32px; --h2-lh: 40px;
+    --h3: 28px; --h3-lh: 36px;
+    --h4: 22px; --h4-lh: 28px;
+    --body-l: 18px; --body-l-lh: 28px;
+    --body-m: 16px; --body-m-lh: 26px;
+    --body-s: 15px; --body-s-lh: 23px;
+  }
+}
+
+[data-project="exzyt"] { --accent-solid: #0ABAB5; --accent-text: #077D7A; --accent-on-solid: #111111; --accent-subtle: #EBF9F9; }
+[data-project="wikit"] { --accent-solid: #0A44A9; --accent-text: #0A44A9; --accent-on-solid: #FFFFFF; --accent-subtle: #EBF0F8; }
+[data-project="viya"]  { --accent-solid: #1E2842; --accent-text: #1E2842; --accent-on-solid: #FFFFFF; --accent-subtle: #EDEEF0; }
