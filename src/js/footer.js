@@ -40,7 +40,7 @@ export function initFooter() {
   const onKey = (e) => {
     if (e.metaKey || e.ctrlKey || e.altKey || e.repeat) return;
     if (e.target.closest?.("input, textarea, select, [contenteditable]")) return;
-    if (document.querySelector("[data-detail]:not([hidden]), [data-menu]:not([hidden])")) return;
+    if (document.querySelector("[data-open], [data-menu]:not([hidden])")) return;
     const btn = keys.find((k) => k.dataset.key === e.key.toLowerCase());
     if (!btn) return;
     btn.classList.add("is-pressed");

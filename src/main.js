@@ -4,9 +4,8 @@ import { initHover } from "./js/hover.js";
 import { initMarquee } from "./js/marquee.js";
 import { initMenu } from "./js/menu.js";
 import { heroIntro, heroParallax, navbarState, scrollCue } from "./js/scroll.js";
-import { initJourney } from "./js/journey.js";
 import { initWork } from "./js/work.js";
-import { initKitchen } from "./js/kitchen.js";
+import { mountEmbeds } from "./embeds/mount.js";
 import { initFooter, initStickers } from "./js/footer.js";
 import { initAnchors, initNavSpy } from "./js/nav.js";
 
@@ -28,9 +27,8 @@ navbarState();
 if (!reduced) heroParallax();
 
 // Build order follows page order so each pin's spacing is known to the triggers below it.
-initJourney();
+mountEmbeds();
 initWork();
-initKitchen();
 initFooter();
 initStickers();
 initNavSpy();

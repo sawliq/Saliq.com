@@ -1,0 +1,139 @@
+
+/* Layout: the same dotted Figma-style canvas, tokens, type and components as Pen Path Journey.
+   An open drawer seen from the front: back wall, a row of standing project cards, and a front panel
+   with the readout and the card navigation in its bottom-right corner.
+   Moving the cursor parts the cards left and right; the selected card rises; click or Enter opens it.
+   Saliq portfolio tokens, dark-first (Night), Day = shell light mode. */
+:host{
+  color-scheme:dark;
+  --canvas:#111111; --dot:#2A2A2A; --card:#181818; --fg:#FFFFFF; --fg-2:#B3B3B3; --muted:#5C5C5C;
+  --line:#FFFFFF; --ghost:#4D4D4D; --chip:#111111; --sel:#0A84FF; --board:#141414; --board-line:#1F1F1F;
+  --scrim:rgba(0,0,0,.7);
+  --font-display:"Clash Display","Archivo",system-ui,sans-serif;
+  --font-text:"General Sans","Albert Sans",system-ui,sans-serif;
+  --r-full:999px; --r-xl:32px; --r-lg:24px;
+}
+@media (prefers-color-scheme: light){:host(:not([data-theme="dark"])){
+  color-scheme:light; --canvas:#F7F7F7; --dot:#DCDCDC; --card:#FFFFFF; --fg:#111111; --fg-2:#666666; --muted:#999999;
+  --line:#111111; --ghost:#B8B8B8; --chip:#FFFFFF; --sel:#0A6CFF; --board:#FFFFFF; --board-line:#ECECEC; --scrim:rgba(17,17,17,.55);}}
+:host([data-theme="light"]){
+  color-scheme:light; --canvas:#F7F7F7; --dot:#DCDCDC; --card:#FFFFFF; --fg:#111111; --fg-2:#666666; --muted:#999999;
+  --line:#111111; --ghost:#B8B8B8; --chip:#FFFFFF; --sel:#0A6CFF; --board:#FFFFFF; --board-line:#ECECEC; --scrim:rgba(17,17,17,.55);}
+:host([data-theme="dark"]){
+  color-scheme:dark; --canvas:#111111; --dot:#2A2A2A; --card:#181818; --fg:#FFFFFF; --fg-2:#B3B3B3; --muted:#5C5C5C;
+  --line:#FFFFFF; --ghost:#4D4D4D; --chip:#111111; --sel:#0A84FF; --board:#141414; --board-line:#1F1F1F; --scrim:rgba(0,0,0,.7);}
+[data-project="mono"]{--a-solid:var(--fg);--a-on:var(--canvas);--a-subtle:var(--canvas);--a-ink:var(--fg-2)}
+[data-project="exzyt"]{--a-solid:#0ABAB5;--a-on:#111111;--a-subtle:#EBF9F9;--a-ink:#111111}
+[data-project="wikit"]{--a-solid:#0A44A9;--a-on:#FFFFFF;--a-subtle:#EBF0F8;--a-ink:#111111}
+[data-project="viya"]{--a-solid:#1E2842;--a-on:#FFFFFF;--a-subtle:#EDEEF0;--a-ink:#111111}
+
+*{box-sizing:border-box}
+:host{display:block;background:var(--canvas);color:var(--fg)}
+:host{font-family:var(--font-text);-webkit-font-smoothing:antialiased}
+h2,h3,p{margin:0}
+button{font:inherit;color:inherit}
+.caps{font:500 14px/20px var(--font-text);letter-spacing:.04em;text-transform:uppercase}
+.display{font-family:var(--font-display);font-weight:650;font-stretch:108%;text-transform:uppercase;letter-spacing:-.025em}
+
+/* Canvas */
+#stage{min-height:100vh;min-height:100dvh;background-color:var(--canvas);
+  background-image:radial-gradient(circle,var(--dot) 1.2px,transparent 1.4px);background-size:24px 24px;
+  padding-block:96px;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1312px;margin:0 auto;display:grid;gap:32px}
+
+/* Header */
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.head-l{display:flex;flex-direction:column;gap:16px}
+.eyebrow{display:flex;gap:10px;align-items:center;color:var(--fg)}
+.eyebrow b{color:var(--sel);font-weight:500}
+.head h2{font-size:clamp(40px,6vw,88px);line-height:.92;position:relative;text-wrap:balance}
+.stk{position:absolute;right:-24px;top:-30px;transform:rotate(9deg);background:var(--fg);color:var(--canvas);border-radius:var(--r-full);padding:8px 16px;font:500 13px/18px var(--font-text);letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;pointer-events:none}
+.head p{font:400 clamp(16px,1.5vw,20px)/1.5 var(--font-text);color:var(--fg-2)}
+.tools{display:flex;gap:8px;flex-wrap:wrap}
+
+/* Pills, icon buttons, buttons (Pen Path components) */
+.pill{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 18px;border-radius:var(--r-full);border:1px solid var(--line);background:var(--chip);color:var(--fg);
+  font:500 13px/1 var(--font-text);letter-spacing:.04em;text-transform:uppercase;cursor:pointer;transition:background .15s ease-out,color .15s ease-out}
+.pill:hover,.pill[aria-pressed="true"]{background:var(--fg);color:var(--canvas)}
+.pill .n{opacity:.6;font-variant-numeric:tabular-nums}
+.ib{width:48px;height:48px;border-radius:50%;border:1px solid var(--line);background:var(--chip);color:var(--fg);display:grid;place-items:center;font:600 20px/1 var(--font-text);cursor:pointer;transition:background .15s ease-out,color .15s ease-out}
+.ib:hover{background:var(--fg);color:var(--canvas)}
+.btn{height:52px;padding:0 24px;border-radius:var(--r-full);border:1px solid var(--line);font:500 14px/1 var(--font-text);letter-spacing:.04em;text-transform:uppercase;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:background .15s ease-out,color .15s ease-out}
+.btn.pri{background:var(--fg);color:var(--canvas)}.btn.pri:hover{background:var(--canvas);color:var(--fg)}
+.pill:focus-visible,.ib:focus-visible,.btn:focus-visible,.dotbtn:focus-visible,.card:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+
+/* Drawer */
+.drawer{position:relative;display:grid;overflow-x:clip}
+.back{position:absolute;left:0;right:0;top:64px;bottom:0;border:1px solid var(--line);border-radius:var(--r-xl);background:var(--board)}
+.back::before{content:"";position:absolute;inset:0;border-radius:inherit;background-image:radial-gradient(circle,var(--board-line) 1.2px,transparent 1.4px);background-size:16px 16px}
+.row{position:relative;height:calc(var(--ch) + 80px)}
+.front{position:relative;z-index:20;margin-top:-44px;min-height:80px;border:1px solid var(--line);border-radius:0 0 var(--r-xl) var(--r-xl);background:var(--card);
+  padding:14px 14px 14px 24px;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:16px}
+.front .handle{width:112px;height:12px;border-radius:var(--r-full);border:1px solid var(--line);background:var(--canvas)}
+.readout{display:flex;align-items:center;gap:10px;min-width:0}
+.readout .live{width:8px;height:8px;border-radius:50%;background:var(--a-solid);outline:1px solid var(--line);flex:none}
+.readout .txt{font:500 14px/20px var(--font-text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.readout .txt span{color:var(--fg-2)}
+
+/* Bottom-right navigation: dots, counter, previous and next */
+.nav{justify-self:end;display:flex;align-items:center;gap:12px}
+.dots{display:flex;align-items:center;gap:6px}
+.dotbtn{width:18px;height:18px;border-radius:50%;border:0;background:none;display:grid;place-items:center;cursor:pointer;padding:0}
+.dotbtn i{width:8px;height:8px;border-radius:50%;background:var(--ghost);transition:transform .2s ease-out,background .2s}
+.dotbtn.on i{transform:scale(1.7);background:var(--a-solid);outline:1px solid var(--line)}
+.count{font:500 14px/20px var(--font-text);font-variant-numeric:tabular-nums;white-space:nowrap}
+.count span{color:var(--fg-2)}
+
+/* Project card (Pen Path card, at drawer scale) */
+.card{position:absolute;left:0;bottom:0;width:var(--cw);height:var(--ch);padding:0;cursor:pointer;text-align:left;
+  border:1px solid var(--line);border-radius:var(--r-lg);background:var(--card);color:var(--fg);overflow:hidden;
+  display:flex;flex-direction:column;transform-origin:50% 100%;will-change:transform;transition:opacity .3s ease-out}
+.c-head{display:flex;align-items:center;gap:12px;padding:14px 14px;background:var(--a-solid);color:var(--a-on);border-bottom:1px solid var(--line);flex:none}
+.c-head .logo{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--fg);display:grid;place-items:center;font:600 15px/1 var(--font-display);flex:none}
+.c-head .nm{font:500 12px/16px var(--font-text);letter-spacing:.04em;text-transform:uppercase}
+.c-head .mt{font:400 12px/16px var(--font-text)}
+.c-body{padding:14px;display:flex;flex-direction:column;gap:8px;flex:1;min-height:0}
+.c-body .ttl{display:block;font:600 18px/1.15 var(--font-text);letter-spacing:-.01em;text-wrap:balance}
+.c-body .tsr{font:400 13px/18px var(--font-text);color:var(--fg-2);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.c-body .tlink{font:500 13px/18px var(--font-text);display:inline-flex;gap:4px;opacity:0;transition:opacity .15s ease-out,gap .15s ease-out}
+.card.on .tlink{opacity:1;gap:8px}
+.card.empty{border-style:dashed;background:var(--board);cursor:default}
+.card.empty .c-head{background:transparent;color:var(--fg-2);border-bottom-style:dashed}
+.card.empty .c-head .logo{border-style:dashed;background:transparent;color:var(--fg-2)}
+.card.out{opacity:0;pointer-events:none}
+
+/* Detail sheet: the Pen Path card, full size */
+#sheet{position:fixed;inset:0;z-index:70;background:var(--scrim);opacity:0;pointer-events:none;transition:opacity .2s ease-out}
+#sheet.open{opacity:1;pointer-events:auto}
+.panel{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:min(560px,calc(100vw - 32px));max-height:calc(100vh - 48px);overflow:auto;
+  border:1px solid var(--line);border-radius:var(--r-xl);background:var(--card);color:var(--fg)}
+.panel .c-head{padding:20px 24px;gap:14px}
+.panel .c-head .logo{width:48px;height:48px;border-radius:14px;font-size:17px}
+.panel .c-head .nm{font-size:14px;line-height:20px}
+.panel .c-head .mt{font-size:14px;line-height:20px}
+.panel .c-head .ct{margin-left:auto;font:500 13px/1 var(--font-text);letter-spacing:.06em;font-variant-numeric:tabular-nums}
+.p-body{padding:24px;display:flex;flex-direction:column;gap:14px}
+.p-body h3{font:600 clamp(24px,2.3vw,32px)/1.12 var(--font-text);letter-spacing:-.01em;text-wrap:balance}
+.p-body p{font:400 16px/24px var(--font-text);color:var(--fg-2)}
+.p-body p strong{color:var(--fg);font-weight:500;box-shadow:inset 0 -2px 0 var(--a-solid)}
+.stats{display:flex;gap:28px}
+.stats div b{display:block;font:650 32px/1 var(--font-display);font-stretch:108%;letter-spacing:-.02em}
+.stats div span{font:400 12px/18px var(--font-text);color:var(--fg-2)}
+.gal{display:flex;gap:10px;padding-top:4px}
+.gal figure{margin:0;flex:1;aspect-ratio:4/3;border:1px solid var(--line);border-radius:12px;background:var(--a-subtle);display:grid;place-items:end start;padding:6px 8px;font:400 11px/14px var(--font-text);color:var(--a-ink);transform:rotate(var(--r,0deg))}
+.p-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:6px;flex-wrap:wrap}
+.p-foot .navs{display:flex;gap:8px}
+
+@media (max-width:900px){.stk{display:none}}
+@media (max-width:767px){
+  #stage{padding-block:64px}
+  .front{grid-template-columns:minmax(0,1fr) auto;padding:12px 12px 12px 18px;margin-top:-36px}
+  .front .handle,.dots{display:none}
+  .readout .txt span{display:none}
+  .c-head{padding:10px;gap:8px}.c-head .logo{width:32px;height:32px;border-radius:10px;font-size:12px}.c-head .mt{display:none}
+  .c-body{padding:10px;gap:6px}.c-body .ttl{font-size:14px}.c-body .tsr{display:none}
+  .stats div b{font-size:26px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+#stage{scroll-margin-top:var(--nav-h,96px)}

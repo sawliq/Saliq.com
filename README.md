@@ -9,8 +9,9 @@ npm run build    # production build to dist/ (two pages: index.html, exzyt.html)
 ```
 
 ## Structure
-- `index.html` — Home: Hero, Journey (pinned, scrubbed), Selected work, Kitchen (project drawer), Footer
+- `index.html` — Home: Hero, Journey, Selected work, Kitchen, Footer
 - `exzyt.html` — Exzyt case study: 16 sections with the motion notes from Figma
+- `src/embeds/` — the **Pen Path Journey** and **Project Drawer** artifacts, mounted into shadow roots (`mount.js`). To change their content or behaviour, edit `pen-path.*` / `project-drawer.*` (copy lives in the `STOPS` / `PROJECTS` arrays at the top of each `.js`)
 - `src/partials/` — shared marquee, navbar + mobile menu, footer (`<!--include:name-->`, see `vite.config.js`)
 - `src/styles/` — `tokens.css` (design tokens, mirror of Figma variables), `type.css`, `sections.css` (Home), `case.css` (case study)
 - `src/js/` — GSAP modules: hover fills, marquee, journey, work cards, kitchen drawer, footer keycaps, nav; `src/case.js` is the case-study motion

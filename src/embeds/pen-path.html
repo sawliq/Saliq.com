@@ -1,0 +1,65 @@
+
+
+<div id="track">
+  <section id="stage" aria-label="Career path, drawn with the pen tool">
+    <div id="world">
+      <svg viewBox="0 0 1600 1200" aria-hidden="true">
+        <g id="boards"></g>
+        <path id="ghost" class="ghost" d="M1100 260 C950 140 620 150 560 330 C500 510 760 560 860 600 C1000 650 1120 760 1040 900 C980 1005 860 1040 740 1035 C620 1030 540 990 500 930"/>
+        <path id="trailU" class="trail-u" d="M1100 260 C950 140 620 150 560 330 C500 510 760 560 860 600 C1000 650 1120 760 1040 900 C980 1005 860 1040 740 1035 C620 1030 540 990 500 930"/>
+        <path id="trail" class="trail" d="M1100 260 C950 140 620 150 560 330 C500 510 760 560 860 600 C1000 650 1120 760 1040 900 C980 1005 860 1040 740 1035 C620 1030 540 990 500 930"/>
+        <g id="handles"></g>
+        <g id="anchors"></g>
+      </svg>
+      <div id="pins"></div>
+      <div id="cursor" aria-hidden="true">
+        <svg class="nib" width="22" height="26" viewBox="0 0 22 26"><path d="M1 1 L1 21 L6.5 16 L10.5 24.5 L14 23 L10 14.8 L17 14.8 Z" fill="var(--fg)" stroke="var(--canvas)" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <span class="who" id="who">Saliq</span>
+      </div>
+    </div>
+
+    <header id="topbar" class="ui">
+      <a class="brand" href="#top" aria-label="Saliq, back to start"><span class="mono">S</span><span class="caps">Saliq</span></a>
+      <div class="tools">
+        <span class="pill static hide-m" aria-hidden="true">Pen tool <kbd>P</kbd></span>
+        <button class="pill" id="playBtn" type="button" aria-pressed="false"><span class="live" aria-hidden="true"></span><span id="playLabel">Autoplay</span></button>
+        <button class="pill" id="themeBtn" type="button"><span id="themeLabel">Day</span></button>
+      </div>
+    </header>
+
+    <div id="hero" class="ui">
+      <span class="eyebrow caps"><b aria-hidden="true">✦</b> The path</span>
+      <h1 class="display">Six anchors.<br>One line.<span class="stk" aria-hidden="true">drawn with the pen tool</span></h1>
+      <p>Placeholder: 20XX to now. Scroll to draw the path.</p>
+    </div>
+
+    <div id="outro" class="ui" style="opacity:0;visibility:hidden">
+      <span class="eyebrow caps"><b aria-hidden="true">✦</b> Path closed</span>
+      <h2 class="display">Every turn made the S.</h2>
+      <div class="row">
+        <button class="btn pri" type="button" id="workBtn">See selected work <span aria-hidden="true">→</span></button>
+        <button class="btn sec" type="button" id="replayBtn">Replay the path</button>
+      </div>
+    </div>
+
+    <article id="card" class="ui" aria-live="polite" style="opacity:0"></article>
+
+    <aside id="inspector" class="ui" aria-hidden="true">
+      <span class="lab">X</span><span class="lab">Y</span>
+      <span id="insX">0</span><span id="insY">0</span>
+      <div class="dial"><span><span class="lab">Angle</span><br><span id="insA">0°</span></span><span id="needle"><i></i></span></div>
+    </aside>
+
+    <div id="zoom" class="ui">
+      <button class="ib" id="recenter" type="button" aria-label="Recenter on cursor">⌖</button>
+      <button class="ib" id="zin" type="button" aria-label="Zoom in">+</button>
+      <span class="pct" id="zpct">100%</span>
+      <button class="ib" id="zout" type="button" aria-label="Zoom out">−</button>
+    </div>
+
+    <nav id="scrub" class="ui" aria-label="Jump to an anchor">
+      <div class="dots" id="dots"></div>
+      <span id="scrubLabel">20XX → now</span>
+    </nav>
+  </section>
+</div>
