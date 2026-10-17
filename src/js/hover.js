@@ -5,7 +5,7 @@ import { gsap } from "gsap";
 export function initHover({ reduced }) {
   document.querySelectorAll("[data-hover]").forEach((trigger) => {
     const surface = trigger.querySelector("[data-hover-surface]") || trigger;
-    if (surface.matches('[aria-current="page"]')) return;
+    if (trigger.dataset.hover === "link" || surface.matches('[aria-current="page"]')) return;
 
     const fill = document.createElement("span");
     fill.className = "hover-fill";

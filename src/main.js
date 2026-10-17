@@ -1,12 +1,17 @@
 import "./styles/main.css";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap, ScrollTrigger, reduced, syncNavHeight } from "./js/gsap-setup.js";
 import { initHover } from "./js/hover.js";
 import { initMarquee } from "./js/marquee.js";
 import { initMenu } from "./js/menu.js";
-import { heroIntro, heroParallax, revealOnScroll, navbarState, scrollCue } from "./js/scroll.js";
+import { heroIntro, heroParallax, navbarState, scrollCue } from "./js/scroll.js";
+import { initJourney } from "./js/journey.js";
+import { initWork } from "./js/work.js";
+import { initKitchen } from "./js/kitchen.js";
+import { initFooter, initStickers } from "./js/footer.js";
+import { initAnchors, initNavSpy } from "./js/nav.js";
 
-const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+syncNavHeight();
+window.addEventListener("resize", syncNavHeight);
 
 // Keep the illustration slot sized even if the asset is missing.
 const illustration = document.querySelector("[data-hero-illustration]");
@@ -15,21 +20,24 @@ illustration?.querySelector("img")?.addEventListener("error", () => illustration
 heroIntro({ reduced });
 document.documentElement.classList.add("is-ready");
 
-initHover({ reduced });
 initMenu({ reduced });
+initAnchors();
 scrollCue({ reduced });
 navbarState();
 
-// Motion-heavy pieces only run when the user hasn't asked for reduced motion.
-const mm = gsap.matchMedia();
-mm.add("(prefers-reduced-motion: no-preference)", () => {
-  heroParallax();
-  revealOnScroll();
-  let stopMarquee = () => {};
-  // Measure the marquee after webfonts settle so the loop width is right.
-  document.fonts.ready.then(() => {
-    stopMarquee = initMarquee();
-    ScrollTrigger.refresh();
-  });
-  return () => stopMarquee();
+if (!reduced) heroParallax();
+
+// Build order follows page order so each pin's spacing is known to the triggers below it.
+initJourney();
+initWork();
+initKitchen();
+initFooter();
+initStickers();
+initNavSpy();
+initHover({ reduced });
+
+document.fonts.ready.then(() => {
+  syncNavHeight();
+  if (!reduced) initMarquee();
+  ScrollTrigger.refresh();
 });
