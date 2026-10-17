@@ -6,7 +6,7 @@ export function mountProjectDrawer(host, sroot) {
 const PROJECTS=[
  {kind:"Workshop",proj:"exzyt",ini:"W1",name:"Workshop 01",meta:"[Month, year] · Dubai",
   head:"[Workshop title 01]",teaser:"Placeholder: what the group made or learned.",
-  body:"Placeholder: what the group was stuck on, how you ran the session, and <strong>what they left with</strong>.",
+  body:"Placeholder: what the group was stuck on, how you ran the session and <strong>what they left with</strong>.",
   stats:[["[00]","Participants"],["[0h]","Duration"]],gal:["Session","Board","Output"],r:-3},
  {kind:"Initiative",proj:"wikit",ini:"I1",name:"Initiative 01",meta:"20XX · [Team]",
   head:"[Initiative title 01]",teaser:"Placeholder: the initiative in one sentence.",
@@ -14,7 +14,7 @@ const PROJECTS=[
   stats:[["[00%]","Metric label"],["[00]","Metric label"]],gal:["Before","After"],r:1.5},
  {kind:"Workshop",proj:"viya",ini:"W2",name:"Workshop 02",meta:"[Month, year] · Online",
   head:"[Workshop title 02]",teaser:"Placeholder: what the group made or learned.",
-  body:"Placeholder: what the group was stuck on, how you ran the session, and <strong>what they left with</strong>.",
+  body:"Placeholder: what the group was stuck on, how you ran the session and <strong>what they left with</strong>.",
   stats:[["[00]","Participants"],["[0h]","Duration"]],gal:["Session","Prototype"],r:-1},
  {kind:"Initiative",proj:"mono",ini:"I2",name:"Initiative 02",meta:"20XX · [Team]",
   head:"[Initiative title 02]",teaser:"Placeholder: the initiative in one sentence.",
@@ -31,7 +31,7 @@ const pad2=n=>String(n).padStart(2,"0");
 /* ---------- Theme: same Day / Night pill as Pen Path ---------- */
 const root=host;
 function isDark(){const t=root.getAttribute("data-theme");return t?t==="dark":!matchMedia("(prefers-color-scheme: light)").matches;}
-function syncTheme(){$("themeLabel").textContent=isDark()?"Day":"Night";}
+function syncTheme(){$("themeLabel").textContent=isDark()?"◑ Day":"◐ Night";}
 try{const s=localStorage.getItem("pd-theme");if(s)root.setAttribute("data-theme",s);}catch(e){}
 $("themeBtn").onclick=()=>{const t=isDark()?"light":"dark";root.setAttribute("data-theme",t);try{localStorage.setItem("pd-theme",t);}catch(e){}syncTheme();};
 syncTheme();
@@ -59,12 +59,12 @@ sroot.querySelector('[data-count="all"]').textContent=visible().length;
 ["Workshop","Initiative"].forEach(k=>sroot.querySelector('[data-count="'+k+'"]').textContent=PROJECTS.filter(p=>p.kind===k).length);
 
 /* ---------- Selection: one card is raised at a time ---------- */
-let sel=-1,hoverIdx=-1,pointerX=null,cw=0,ch=0;
+let filter="all",sel=-1,hoverIdx=-1,pointerX=null,cw=0,ch=0;
 const active=()=>hoverIdx>=0?hoverIdx:sel;
 function readout(){
   const i=active(),txt=$("rTxt");
   const vis=visible();
-  if(i<0){front.dataset.project="mono";txt.innerHTML=vis.length+' projects <span>· move across the drawer, or use the arrows</span>';}
+  if(i<0){front.dataset.project="mono";txt.innerHTML=filter==="all"?vis.length+' projects <span>· move across the drawer, or use the arrows</span>':vis.length+' '+filter.toLowerCase()+'s <span>· the rest sank into the drawer</span>';}
   else{const p=PROJECTS[i];front.dataset.project=p.proj;txt.innerHTML=p.empty?'Next <span>· being planned</span>':p.kind+' · '+p.head+(p.empty?'':' <span>· click to open</span>');}
   const k=vis.indexOf(sel);
   $("count").innerHTML=pad2(k<0?0:k+1)+' <span>/ '+pad2(vis.length)+'</span>';
@@ -126,7 +126,7 @@ function frame(){
 
 /* ---------- Filters ---------- */
 sroot.querySelectorAll("[data-filter]").forEach(btn=>btn.addEventListener("click",()=>{
-  const k=btn.dataset.filter;
+  const k=btn.dataset.filter;filter=k;
   sroot.querySelectorAll("[data-filter]").forEach(b=>b.setAttribute("aria-pressed",String(b===btn)));
   S.forEach(s=>{s.show=k==="all"||s.p.kind===k;s.el.classList.toggle("out",!s.show);s.el.tabIndex=s.show?0:-1;});
   if(sel>=0&&!S[sel].show)sel=-1;
@@ -142,7 +142,7 @@ function renderSheet(i){
   const gal='<div class="gal">'+p.gal.map((g,j)=>'<figure style="--r:'+[-3,2,-1][j%3]+'deg">'+g+'</figure>').join("")+'</div>';
   panel.innerHTML='<div class="c-head"><span class="logo">'+p.ini+'</span><span><span class="nm">'+p.kind+'</span><br><span class="mt">'+p.meta+'</span></span><span class="ct">'+pad2(k+1)+' / '+pad2(vis.length)+'</span></div>'+
     '<div class="p-body"><h3 id="pTitle">'+p.head+'</h3><p>'+p.body+'</p>'+stats+gal+
-    '<div class="p-foot"><button class="btn pri" type="button">Read the case study <span aria-hidden="true">→</span></button>'+
+    '<div class="p-foot"><button class="btn pri" type="button">View case study <span aria-hidden="true">→</span></button>'+
     '<div class="navs"><button class="ib" type="button" data-go="-1" aria-label="Previous project">←</button><button class="ib" type="button" data-go="1" aria-label="Next project">→</button><button class="ib" type="button" data-close aria-label="Close">×</button></div></div></div>';
   panel.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>go(Number(b.dataset.go)));
   panel.querySelector("[data-close]").onclick=closeSheet;

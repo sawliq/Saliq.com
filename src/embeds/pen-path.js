@@ -1,25 +1,26 @@
 // Pen Path Journey, mounted from the published artifact (https://claude.ai/artifact/2afsQ1Y7kiw8PSmwvAWL7z).
 // Runs inside a shadow root so its ids and classes stay separate from the site.
 export function mountPenPath(host, sroot) {
+const CASE_URL=host.dataset.caseUrl||"/exzyt.html";
 
 /* ---------- Content: replace placeholders with real stops ---------- */
 const STOPS=[
- {id:"start",proj:"mono",ini:"01",name:"Where it started",meta:"20XX · City",scrub:"20XX · City",
-  head:"The first anchor point.",body:"Placeholder: the moment your path began. Degree, first job, or <strong>the first thing you designed</strong>. Two to three sentences.",
+ {id:"start",proj:"mono",ini:"01",name:"Where it started",meta:"2021 · Mangalore",
+  head:"The first anchor point.",body:"Placeholder: the moment your path began. Degree, first job, or <strong>the first thing you designed</strong>.",
   gal:["Campus","First sketch","Team"],pin:[100,-80],side:"right",rot:-8},
- {id:"turn",proj:"mono",ini:"02",name:"The turn",meta:"20XX · City",scrub:"20XX · The turn",
+ {id:"turn",proj:"mono",ini:"02",name:"The turn",meta:"20XX · City",
   head:"Where the curve changed direction.",body:"Placeholder: the switch into design. What pulled you in, and <strong>the one decision</strong> that bent the path.",
   gal:["Old work","Figma file"],pin:[-120,-40],side:"left",rot:7},
- {id:"exzyt",proj:"exzyt",ini:"Ex",name:"Exzyt",meta:"20XX – 20XX · Dubai",scrub:"Exzyt · 20XX",
-  head:"Placeholder: what Exzyt taught you.",body:"Your role, the problem, and the lesson. Keep it under 50 words and <strong>end on the outcome</strong>.",
+ {id:"exzyt",proj:"exzyt",ini:"EX",name:"Exzyt",meta:"20XX – 20XX · Dubai",
+  head:"Placeholder: what Exzyt taught you.",body:"Your role, the problem and the lesson. Under 50 words, <strong>ending on the outcome</strong>.",
   stats:[["+00%","Metric label"],["00K","Metric label"]],pin:[120,-60],side:"right",rot:-6,link:"View case study"},
- {id:"wikit",proj:"wikit",ini:"Wk",name:"WIKIT",meta:"20XX – 20XX · Dubai",scrub:"WIKIT · 20XX",
+ {id:"wikit",proj:"wikit",ini:"WK",name:"WIKIT",meta:"20XX – 20XX · Dubai",
   head:"Placeholder: the WIKIT chapter.",body:"What you designed, who it was for, and <strong>what changed because of it</strong>.",
   stats:[["00","Metric label"],["0.0×","Metric label"]],pin:[120,10],side:"right",rot:9,link:"View case study"},
- {id:"viya",proj:"viya",ini:"Vy",name:"Viya",meta:"20XX – now · Dubai",scrub:"Viya · 20XX",
+ {id:"viya",proj:"viya",ini:"VY",name:"Viya",meta:"20XX – now · Dubai",
   head:"Systems at partner scale.",body:"Placeholder: Viya Partner Portal. Settings modules, FRDs to Jira, and <strong>design that engineering can ship</strong>.",
   stats:[["00","Modules shipped"],["00%","Metric label"]],pin:[0,110],side:"right",rot:-10,link:"View case study"},
- {id:"now",proj:"mono",ini:"S",name:"Now",meta:"Always on · Dubai",scrub:"Now · Dubai",
+ {id:"now",proj:"mono",ini:"S",name:"Now",meta:"Always on · Dubai",
   head:"Design to code, end to end.",body:"Placeholder: Figma, MCP and Claude skills, turned into shipped code. <strong>Open to new roles.</strong>",
   gal:["Figma","Skill","Live site"],pin:[-120,-30],side:"left",rot:6,link:"Let's talk"}
 ];
@@ -106,7 +107,7 @@ let shown=-1;
 function renderCard(i){const s=STOPS[i];card.dataset.project=s.proj;
   const stats=s.stats?'<div class="stats">'+s.stats.map(x=>'<div><b>'+x[0]+'</b><span>'+x[1]+'</span></div>').join("")+'</div>':"";
   const gal=s.gal?'<div class="gal">'+s.gal.map((g,k)=>'<figure style="--r:'+[-3,2,-1][k%3]+'deg">'+g+'</figure>').join("")+'</div>':"";
-  const href=s.id==="exzyt"?"/exzyt.html":s.id==="now"?"#contact":"#work";const link=s.link?'<a class="tlink" href="'+href+'">'+s.link+' <span aria-hidden="true">→</span></a>':"";
+  const href=s.id==="exzyt"?CASE_URL:s.id==="now"?"#contact":"#work";const ext=/^https?:/.test(href)?' target="_blank" rel="noopener"':"";const link=s.link?'<a class="tlink" href="'+href+'"'+ext+'>'+s.link+' <span aria-hidden="true">→</span></a>':"";
   card.innerHTML='<div class="c-head swap"><span class="logo">'+s.ini+'</span><span><span class="nm">'+s.name+'</span><br><span class="mt">'+s.meta+'</span></span><span class="ct">'+String(i+1).padStart(2,"0")+' / '+String(N).padStart(2,"0")+'</span></div>'+
    '<div class="c-body swap"><h3>'+s.head+'</h3><p>'+s.body+'</p>'+stats+gal+link+'</div>';
   $("who").parentElement.dataset.project=s.proj;
@@ -134,7 +135,7 @@ function frame(){
 
   const pt=ghost.getPointAtLength(curLen),q=ghost.getPointAtLength(Math.min(L,curLen+2)),q0=ghost.getPointAtLength(Math.max(0,curLen-2));
   const ang=Math.atan2(q.y-q0.y,q.x-q0.x)*180/Math.PI;
-  cursor.style.transform="translate("+pt.x+"px,"+pt.y+"px) scale("+(1/cam.s).toFixed(3)+")";
+  cursor.style.transform="translate("+pt.x+"px,"+pt.y+"px) scale("+(1/cam.s).toFixed(3)+")";cursor.style.setProperty("--hd",(ang+90).toFixed(1)+"deg");
   trail.style.strokeDashoffset=(L-curLen).toFixed(1);trailU.style.strokeDashoffset=(L-curLen).toFixed(1);
   trail.style.strokeWidth=(2.5+st.zout*16).toFixed(2);
   ghost.style.opacity=(1-st.zout).toFixed(2);
@@ -157,7 +158,7 @@ function frame(){
       s.pinEl.classList.toggle("on",i===act&&st.e>0.5);s.dot.className="dotbtn"+(i===act&&st.e>0.3?" on":passed&&st.e>0.3?" passed":"");});
     lastAct=act;
   }
-  $("scrubLabel").textContent=st.e<0.3?"20XX → now":STOPS[act].scrub;
+  $("scrubLabel").textContent=st.zout>0.5?"Path closed · "+String(N).padStart(2,"0")+" / "+String(N).padStart(2,"0"):st.e<0.3?"2021 → now":String(act+1).padStart(2,"0")+" / "+String(N).padStart(2,"0")+" · "+STOPS[act].name;
   if(playing){const max=trackTop()+track.offsetHeight-vh;if(scrollY>=max-2){setPlay(false);}else{scrollBy(0,Math.max(1.2,vh/420));}}
   requestAnimationFrame(frame);
 }
@@ -175,6 +176,7 @@ syncTheme();
 $("zin").onclick=()=>{uz=Math.min(1.8,uz+0.2);};
 $("zout").onclick=()=>{uz=Math.max(0.6,uz-0.2);};
 $("recenter").onclick=()=>{uz=1;};
+$("skip").onclick=e=>{e.preventDefault();$("workBtn").onclick();};
 $("replayBtn").onclick=()=>{scrollTo({top:0,behavior:reduce?"auto":"smooth"});};
 $("workBtn").onclick=()=>{const w=document.getElementById("work");if(w)scrollTo({top:w.getBoundingClientRect().top+scrollY-navH(),behavior:reduce?"auto":"smooth"});};
 const live=()=>{const r=stage.getBoundingClientRect();return r.top<=navH()+2&&r.bottom>=innerHeight*0.5;};

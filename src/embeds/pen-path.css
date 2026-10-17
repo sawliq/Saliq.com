@@ -91,7 +91,7 @@ kbd{font:500 11px/1 var(--font-text);border:1px solid var(--fg-2);border-radius:
 #scrubLabel{font:500 14px/20px var(--font-text);white-space:nowrap;font-variant-numeric:tabular-nums}
 
 #hero{left:0;right:0;top:max(96px,calc(env(safe-area-inset-top,0px) + 96px));text-align:center;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));pointer-events:none;display:flex;flex-direction:column;align-items:center;gap:16px}
-#hero h1{margin:0;font-size:clamp(40px,6vw,88px);line-height:.92;text-wrap:balance;max-width:1100px;position:relative}
+#hero h2{margin:0;font-size:clamp(40px,6vw,88px);line-height:.92;text-wrap:balance;max-width:1100px;position:relative}
 #hero .stk{position:absolute;right:-8px;top:-26px;transform:rotate(9deg);background:var(--fg);color:var(--canvas);border-radius:var(--r-full);padding:8px 16px;font:500 13px/18px var(--font-text);letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
 #hero p{margin:0;font:400 clamp(16px,1.5vw,20px)/1.5 var(--font-text);color:var(--fg-2)}
 .eyebrow{display:flex;gap:10px;align-items:center;color:var(--fg)}
@@ -146,3 +146,20 @@ kbd{font:500 11px/1 var(--font-text);border:1px solid var(--fg-2);border-radius:
 #topbar .brand{display:none}
 #hero,#outro{top:44px}
 @media (max-width:767px){#hero,#outro{top:36px}}
+
+/* ---- Location cursor (replaces the pen nib): dot, heading beam and a radar pulse, like a maps "you are here" ---- */
+#cursor .loc{position:absolute;left:0;top:0;width:0;height:0}
+#cursor .core{position:absolute;left:-9px;top:-9px;width:18px;height:18px;border-radius:50%;background:var(--sel);border:3px solid var(--card);box-shadow:0 0 0 1px var(--line);z-index:2}
+#cursor .pulse{position:absolute;left:-9px;top:-9px;width:18px;height:18px;border-radius:50%;background:var(--sel);opacity:.45;animation:locPulse 2.4s cubic-bezier(.2,.6,.3,1) infinite}
+#cursor .pulse.two{animation-delay:1.2s}
+#cursor .beam{position:absolute;left:-28px;top:-56px;width:56px;height:56px;transform-origin:50% 100%;transform:rotate(var(--hd,0deg));
+  background:radial-gradient(60% 100% at 50% 100%,color-mix(in srgb,var(--sel) 45%,transparent),transparent 72%);
+  clip-path:polygon(50% 100%,12% 0,88% 0);opacity:.9}
+@keyframes locPulse{0%{transform:scale(1);opacity:.45}70%{opacity:0}100%{transform:scale(4.2);opacity:0}}
+#cursor .who{left:20px;top:12px}
+/* ---- Skip link, always visible (Figma 549:61) ---- */
+.skip{right:max(24px,env(safe-area-inset-right,0px));bottom:max(38px,calc(env(safe-area-inset-bottom,0px) + 38px));color:var(--fg);text-decoration:none;font:500 14px/20px var(--font-text);display:inline-flex;gap:4px;transition:gap .15s ease-out}
+.skip:hover{gap:8px;text-decoration:underline;text-underline-offset:4px}
+.skip:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+@media (max-width:1023px){.skip{display:none}}
+@media (prefers-reduced-motion:reduce){#cursor .pulse{animation:none;opacity:.18;transform:scale(2.2)}#cursor .pulse.two{display:none}}

@@ -13,7 +13,7 @@
       </svg>
       <div id="pins"></div>
       <div id="cursor" aria-hidden="true">
-        <svg class="nib" width="22" height="26" viewBox="0 0 22 26"><path d="M1 1 L1 21 L6.5 16 L10.5 24.5 L14 23 L10 14.8 L17 14.8 Z" fill="var(--fg)" stroke="var(--canvas)" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <span class="loc" id="loc"><i class="beam"></i><i class="pulse"></i><i class="pulse two"></i><b class="core"></b></span>
         <span class="who" id="who">Saliq</span>
       </div>
     </div>
@@ -28,17 +28,17 @@
     </header>
 
     <div id="hero" class="ui">
-      <span class="eyebrow caps"><b aria-hidden="true">✦</b> The path</span>
-      <h1 class="display">Six anchors.<br>One line.<span class="stk" aria-hidden="true">drawn with the pen tool</span></h1>
-      <p>Placeholder: 20XX to now. Scroll to draw the path.</p>
+      <span class="eyebrow caps"><b aria-hidden="true">✦</b> (02 / 04) — Journey so far</span>
+      <h2 class="display">Six anchors.<br>One passion.</h2>
+      <p>Scroll to draw the path. 2021 to now.</p>
     </div>
 
     <div id="outro" class="ui" style="opacity:0;visibility:hidden">
       <span class="eyebrow caps"><b aria-hidden="true">✦</b> Path closed</span>
-      <h2 class="display">Every turn made the S.</h2>
+      <h2 class="display">Every turn increased the passion.</h2>
       <div class="row">
         <button class="btn pri" type="button" id="workBtn">See selected work <span aria-hidden="true">→</span></button>
-        <button class="btn sec" type="button" id="replayBtn">Replay the path</button>
+        <button class="btn sec" type="button" id="replayBtn">Replay</button>
       </div>
     </div>
 
@@ -57,9 +57,11 @@
       <button class="ib" id="zout" type="button" aria-label="Zoom out">−</button>
     </div>
 
+    <a class="ui skip" id="skip" href="#work">Skip to selected work <span aria-hidden="true">→</span></a>
+
     <nav id="scrub" class="ui" aria-label="Jump to an anchor">
       <div class="dots" id="dots"></div>
-      <span id="scrubLabel">20XX → now</span>
+      <span id="scrubLabel">2021 → now</span>
     </nav>
   </section>
 </div>
