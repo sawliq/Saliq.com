@@ -11,7 +11,7 @@ export function initAnchors() {
     if (!target) return;
     e.preventDefault();
     gsap.to(window, { scrollTo: { y: target, offsetY: id === "#main" ? 0 : syncNavHeight() - 1, autoKill: true }, duration: reduced ? 0 : 1, ease: "power3.inOut" });
-    history.replaceState(null, "", id);
+    try { history.replaceState(null, "", id); } catch { /* sandboxed frames can refuse */ }
   });
 }
 

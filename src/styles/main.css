@@ -1,6 +1,7 @@
 @import "./tokens.css";
 @import "./type.css";
 @import "./sections.css";
+@import "./case.css";
 
 /* ---------- Base ---------- */
 *, *::before, *::after { box-sizing: border-box; }
@@ -229,4 +230,7 @@ img { display: block; max-width: 100%; height: auto; }
 /* Pre-animation state: hidden only until main.js sets GSAP start values */
 .js:not(.is-ready) [data-hero-line],
 .js:not(.is-ready) [data-hero-intro],
-.js:not(.is-ready) [data-hero-illustration] { visibility: hidden; }
+.js:not(.is-ready) [data-hero-illustration],
+.js:not(.is-ready) [data-case-line],
+.js:not(.is-ready) [data-hero-fade],
+.js:not(.is-ready) [data-case-sticker] { visibility: hidden; }

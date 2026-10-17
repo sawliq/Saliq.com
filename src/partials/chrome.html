@@ -1,0 +1,39 @@
+    <!-- Navbar — 508:20 -->
+    <header class="navbar" data-navbar>
+      <a class="logo" href="{{home}}" aria-label="Sayed Saliq, home">
+        <span class="logo__mark h4" aria-hidden="true">S</span>
+        <span class="logo__name label-caps">Sayed Saliq</span>
+      </a>
+
+      <nav class="nav-capsule" aria-label="Primary">
+        <a class="nav-pill label-caps" href="{{home}}"{{cur_home}} data-hover="pill"><span>Home</span></a>
+        <a class="nav-pill label-caps" href="{{base}}#journey"{{cur_journey}} data-hover="pill"><span>Journey</span></a>
+        <a class="nav-pill label-caps" href="{{base}}#work"{{cur_work}} data-hover="pill"><span>Work</span></a>
+        <a class="nav-pill label-caps" href="{{base}}#kitchen"{{cur_kitchen}} data-hover="pill"><span>Kitchen</span></a>
+      </nav>
+
+      <button class="icon-btn icon-btn--outline navbar__menu-btn" type="button"
+        aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"
+        data-menu-open data-hover="fill">
+        <span class="icon-btn__glyph h4" aria-hidden="true">+</span>
+      </button>
+    </header>
+
+    <!-- Mobile menu: full-screen inverse sheet -->
+    <div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Menu" hidden data-menu>
+      <div class="mobile-menu__top">
+        <span class="logo__name label-caps">Sayed Saliq</span>
+        <button class="icon-btn icon-btn--inverse" type="button" aria-label="Close menu" data-menu-close>
+          <span class="icon-btn__glyph h4" aria-hidden="true">×</span>
+        </button>
+      </div>
+      <nav aria-label="Mobile">
+        <ul class="mobile-menu__list">
+          <li><a class="display-m" href="{{home}}">Home</a></li>
+          <li><a class="display-m" href="{{base}}#journey">Journey</a></li>
+          <li><a class="display-m" href="{{base}}#work">Work</a></li>
+          <li><a class="display-m" href="{{base}}#kitchen">Kitchen</a></li>
+        </ul>
+      </nav>
+    </div>
+
